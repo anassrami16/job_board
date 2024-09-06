@@ -63,16 +63,46 @@ const JobTable: React.FC<JobTableProps> = ({
     setSortOrder('asc'); // Reset sort order to 'asc'
   };
 
-  // Sort the jobs based on the selected criteria
   const sortJobs = (jobs: any) => {
     if (!sortCriteria) return jobs;
+
     return [...jobs].sort((a, b) => {
-      const aValue = a[sortCriteria] ? a[sortCriteria]!.toString() : '';
-      const bValue = b[sortCriteria] ? b[sortCriteria]!.toString() : '';
+      let aValue: string | number = '';
+      let bValue: string | number = '';
+
+      // Handle different sorting criteria
+      switch (sortCriteria) {
+        case 'name':
+          aValue = a.name ? a.name.toString() : '';
+          bValue = b.name ? b.name.toString() : '';
+          break;
+
+        case 'created_at':
+          aValue = a.created_at ? new Date(a.created_at).getTime() : 0;
+          bValue = b.created_at ? new Date(b.created_at).getTime() : 0;
+          break;
+
+        case 'category':
+          aValue =
+            a?.tags?.find(
+              (tag: { name: string }) => tag?.name.toUpperCase() === 'CATEGORY'
+            )?.value || '';
+          bValue =
+            b?.tags?.find(
+              (tag: { name: string }) => tag?.name.toUpperCase() === 'CATEGORY'
+            )?.value || '';
+          break;
+
+        default:
+          aValue = '';
+          bValue = '';
+      }
+
+      // Handle the sorting order (ascending or descending)
       if (sortOrder === 'asc') {
-        return aValue.localeCompare(bValue);
+        return aValue.toString().localeCompare(bValue.toString());
       } else {
-        return bValue.localeCompare(aValue);
+        return bValue.toString().localeCompare(aValue.toString());
       }
     });
   };

@@ -24,11 +24,7 @@ export default class ApiService {
     return this.apiRun('put', url, body, params);
   }
 
-  protected apiDelete(
-    url: string,
-    params: object = {},
-    hasToken: boolean = false
-  ): Promise<any> {
+  protected apiDelete(url: string, params: object = {}): Promise<any> {
     return this.apiRun('delete', url, null, params);
   }
 
