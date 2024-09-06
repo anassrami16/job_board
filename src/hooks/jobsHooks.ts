@@ -11,6 +11,6 @@ export const useJobsQuery = (params: GetJobReq) => {
   return useQuery({
     queryKey: [...JOBS_QUERY_KEY, params],
     queryFn: () => jobsService.getJobs(params),
-    staleTime: 5000, // Data stays fresh for 5 seconds
+    staleTime: 300000, // 5 minutes (in milliseconds)
   });
 };
