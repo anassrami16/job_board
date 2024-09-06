@@ -12,7 +12,7 @@ const getFromLocalStorage = (key: string, defaultValue: any) => {
 
 // Atom for sort criteria
 export const sortCriteriaAtom = atom(
-  getFromLocalStorage('sortCriteria', 'name') // Default value: 'name'
+  getFromLocalStorage('sortCriteria', null) // Default value: 'name'
 );
 
 // Atom for selected categories
@@ -22,7 +22,7 @@ export const selectedCategoriesAtom = atom(
 
 // Atom for sort order
 export const sortOrderAtom = atom(
-  getFromLocalStorage('sortOrder', 'asc') // Default value: 'asc'
+  getFromLocalStorage('sortOrder', null) // Default value: 'asc'
 );
 
 // Side-effect to persist `sortCriteria` in localStorage
