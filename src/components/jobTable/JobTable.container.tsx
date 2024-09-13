@@ -33,7 +33,7 @@ const JobTable: React.FC<JobTableProps> = ({
     'Financial Services',
     'Human Resources',
     'Software Engineering',
-  ].map(item => item.toUpperCase()));
+  ]);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
 
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -111,10 +111,15 @@ const JobTable: React.FC<JobTableProps> = ({
   const filterJobsByCategory = (jobs: Job[]) => {
     if (selectedCategories.length === 0) return jobs;
     return jobs.filter((job) => {
-      const category = job?.tags?.find(
-        (tag) => tag?.name.toUpperCase() === 'CATEGORY'
-      )?.value?.toUpperCase();
-      return category && selectedCategories.includes(category);
+      const category = job?.tags
+        ?.find((tag) => tag?.name.toUpperCase() === 'CATEGORY')
+        ?.value?.toUpperCase();
+      return (
+        category &&
+        selectedCategories
+          .map((item: any) => item.toUpperCase())
+          .includes(category)
+      );
     });
   };
 
